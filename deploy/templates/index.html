@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Dự đoán từ PhoBERT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Dự đoán kết quả học tập (PhoBERT)</h1>
+
+        <form method="post" class="form-section">
+            <input type="text" name="nghe_cha" placeholder="Nghề nghiệp cha" required>
+            <input type="text" name="nghe_me" placeholder="Nghề nghiệp mẹ" required>
+            <input type="text" name="gio_hoc" placeholder="Giờ học" required>
+            <input type="text" name="gio_choi" placeholder="Giờ chơi" required>
+            <input type="text" name="gio_mang" placeholder="Giờ dùng mạng xã hội" required>
+            <input type="text" name="gpa" placeholder="GPA" required>
+            <input type="text" name="thich_nghi" placeholder="Thích nghi môi trường" required>
+            <input type="text" name="phuong_phap" placeholder="Phương pháp học" required>
+            <input type="text" name="ho_tro" placeholder="Hỗ trợ trường" required>
+            <input type="text" name="co_so" placeholder="Cơ sở vật chất" required>
+            <input type="text" name="chat_luong" placeholder="Chất lượng giảng viên" required>
+            <input type="text" name="chuong_trinh" placeholder="Chương trình đào tạo" required>
+            <input type="text" name="tinh_canh_tranh" placeholder="Tính cạnh tranh" required>
+            <input type="text" name="anh_huong" placeholder="Ảnh hưởng cá nhân" required>
+            <br>
+            <button type="submit" name="action" value="predict" class="btn predict">Dự đoán & Thêm</button>
+            <button type="submit" name="action" value="save" class="btn save">Lưu CSV</button>
+        </form>
+
+        <h2>Kết quả dự đoán</h2>
+        <table>
+            <tr>
+                <th>#</th><th>Nghề Cha</th><th>Nghề Mẹ</th><th>Giờ Học</th><th>Giờ Chơi</th><th>Giờ Mạng</th>
+                <th>GPA</th><th>Thích Nghi</th><th>PP Học</th><th>Hỗ Trợ</th><th>Cơ Sở</th>
+                <th>Chất Lượng</th><th>Chương Trình</th><th>Cạnh Tranh</th><th>Ảnh Hưởng</th><th>Kết quả</th><th>Xoá</th>
+            </tr>
+            {% for row in results %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ row.nghe_cha }}</td><td>{{ row.nghe_me }}</td><td>{{ row.gio_hoc }}</td><td>{{ row.gio_choi }}</td>
+                <td>{{ row.gio_mang }}</td><td>{{ row.gpa }}</td><td>{{ row.thich_nghi }}</td><td>{{ row.phuong_phap }}</td>
+                <td>{{ row.ho_tro }}</td><td>{{ row.co_so }}</td><td>{{ row.chat_luong }}</td><td>{{ row.chuong_trinh }}</td>
+                <td>{{ row.tinh_canh_tranh }}</td><td>{{ row.anh_huong }}</td><td>{{ row.ket_qua }}</td>
+                <td>
+                    <form method="post" style="display:inline;">
+                        <button type="submit" name="action" value="delete_{{ loop.index0 }}" class="btn delete">Xoá</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
